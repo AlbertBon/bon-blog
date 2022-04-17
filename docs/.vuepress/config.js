@@ -34,20 +34,20 @@ module.exports = {
                 }
             },
         ],
-        comment: {
+    },
+    plugins: [
+        ['@vssue/vuepress-plugin-vssue', {
             platform: 'gitee',
             baseUrl:'https://gitee.com',
-            // 你想使用的服务
-            service: 'vssue',
             // 存储 issue 和评论的库的所有者名称。
             owner: 'bon149',
             // 用于存储 issue 和评论的存储库的名称。
-            repo: 'vssue',
+            repo: 'bon-blog',
             // 从 OAuth2 规范中引入的 clientId 和 clientSecret。
             clientId: '1160a35304c4536bad362c0001d8e02fb243e5fa3f5326021b6e7fa446022b10',
             clientSecret: '6c9a504fbacd7dcc65f57de7470e6c0e9b823c2fe67d2cebdae4fbff90424098',
-        },
-    }
+        }],
+    ],
 
 
 }
