@@ -1,0 +1,20 @@
+{
+  "name": "bon-blog",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://gitee.com/bon149/bon-blog.git",
+  "author": "bon_laptop <502285815@qq.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "vuepress dev docs",
+    "build": "vuepress build docs"
+  },
+  "devDependencies": {
+    "@vuepress/plugin-blog": "^1.9.4",
+    "@vuepress/theme-blog": "^2.3.3",
+    "vuepress": "^1.9.7"
+  },
+  "dependencies": {
+    "@vssue/api-gitee-v5": "^1.4.7"
+  }
+}

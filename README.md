@@ -3,35 +3,42 @@
 #### 介绍
 博客
 
-#### 软件架构
-软件架构说明
+#### 目录结构
 
+```text
+.
+├── docs
+│   ├── .vuepress (可选的)
+│   │   ├── components (可选的)
+│   │   ├── theme (可选的)
+│   │   │   └── Layout.vue
+│   │   ├── public (可选的)
+│   │   ├── styles (可选的)
+│   │   │   ├── index.styl
+│   │   │   └── palette.styl
+│   │   ├── templates (可选的, 谨慎配置)
+│   │   │   ├── dev.html
+│   │   │   └── ssr.html
+│   │   ├── config.js (可选的)
+│   │   └── enhanceApp.js (可选的)
+│   │ 
+│   ├── README.md
+│   ├── guide
+│   │   └── README.md
+│   └── config.md
+│ 
+└── package.json
+```
 
-#### 安装教程
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 使用说明
-
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+docs/.vuepress: 用于存放全局的配置、组件、静态资源等。
+docs/.vuepress/components: 该目录中的 Vue 组件将会被自动注册为全局组件。
+docs/.vuepress/theme: 用于存放本地主题。
+docs/.vuepress/styles: 用于存放样式相关的文件。
+docs/.vuepress/styles/index.styl: 将会被自动应用的全局样式文件，会生成在最终的 CSS 文件结尾，具有比默认样式更高的优先级。
+docs/.vuepress/styles/palette.styl: 用于重写默认颜色常量，或者设置新的 stylus 颜色常量。
+docs/.vuepress/public: 静态资源目录。
+docs/.vuepress/templates: 存储 HTML 模板文件。
+docs/.vuepress/templates/dev.html: 用于开发环境的 HTML 模板文件。
+docs/.vuepress/templates/ssr.html: 构建时基于 Vue SSR 的 HTML 模板文件。
+docs/.vuepress/config.js: 配置文件的入口文件，也可以是 YML 或 toml。
+docs/.vuepress/enhanceApp.js: 客户端应用的增强。
