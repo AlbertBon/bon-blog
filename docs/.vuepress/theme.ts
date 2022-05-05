@@ -14,9 +14,11 @@ export default hopeTheme({
 
   logo: "/logo.svg",
 
-  repo: "",
-
-  docsDir: "",
+  // 是否编辑,仓库链接
+  editLink: true, //是否展示编辑此页链接
+  repo: "AlbertBon/bon-blog",
+  docsBranch: "master",
+  docsDir: "/docs",
 
   // navbar
   navbar: navbar,
