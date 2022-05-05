@@ -85,10 +85,13 @@ export default hopeTheme({
        * Using giscus
        */
       type: "giscus",
-      repo: "vuepress-theme-hope/giscus-discussions",
-      repoId: "R_kgDOG_Pt2A",
+      repo: "AlbertBon/bon-blog-discussions",
+      repoId: "R_kgDOHSPKiQ",
       category: "Announcements",
-      categoryId: "DIC_kwDOG_Pt2M4COD69",
+      categoryId: "DIC_kwDOHSPKic4CO8Zw",
+      mapping: "title", // 页面 与 discussion 映射关系
+      inputPosition: "top", // 输入框的位置
+      reactionsEnabled: true,//是否启用主帖子上的反应
 
       /**
        * Using twikoo
