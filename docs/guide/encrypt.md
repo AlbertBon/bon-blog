@@ -1,7 +1,7 @@
 ---
 icon: lock
-password: 1234
-category: 使用指南
+category:
+  - 使用指南
 tag:
   - 文章加密
 ---

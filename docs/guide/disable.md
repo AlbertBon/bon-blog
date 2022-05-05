@@ -1,16 +1,20 @@
 ---
+index: 3
 title: 组件禁用
 icon: config
-category: 使用指南
+category:
+  - 使用指南
+tag:
+  - 禁用
 
 navbar: false
 sidebar: false
 
 breadcrumb: false
 pageInfo: false
-contributor: false
+contributors: false
 editLink: false
-updateTime: false
+lastUpdated: false
 prev: false
 next: false
 comment: false
