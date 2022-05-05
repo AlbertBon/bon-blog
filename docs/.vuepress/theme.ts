@@ -3,26 +3,26 @@ import navbar from "./navbar";
 import sidebar from "./sidebar";
 
 export default hopeTheme({
-  hostname: "https://vuepress-theme-hope-v2-demo.mrhope.site",
+  hostname: "http://bon.sikixt.xyz",
 
   author: {
-    name: "Mr.Hope",
-    url: "https://mrhope.site",
+    name: "Albert",
+    url: "http://bon.sikixt.xyz",
   },
 
   iconPrefix: "iconfont icon-",
 
   logo: "/logo.svg",
 
-  repo: "vuepress-theme-hope/vuepress-theme-hope",
+  repo: "",
 
-  docsDir: "demo/src",
+  docsDir: "",
 
   // navbar
   navbar: navbar,
 
   // sidebar
-  sidebar: sidebar,
+  sidebar: [],
 
   footer: "默认页脚",
 

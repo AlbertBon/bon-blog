@@ -10,38 +10,21 @@ export default navbar([
     prefix: "/posts/",
     children: [
       {
-        text: "文章 1-4",
-        icon: "edit",
-        prefix: "article/",
+        text: "theme-hope 文章",
+        icon: "linter",
+        prefix: "vuepress-theme-hope/",
         children: [
-          { text: "文章 1", icon: "edit", link: "article1" },
-          { text: "文章 2", icon: "edit", link: "article2" },
-          "article3",
-          "article4",
+          "init_project",
+
         ],
-      },
-      {
-        text: "文章 5-12",
-        icon: "edit",
+      },{
+        text: "虎彩工作日志",
+        prefix: "hucai_work/",
         children: [
-          {
-            text: "文章 5",
-            icon: "edit",
-            link: "article/article5",
-          },
-          {
-            text: "文章 6",
-            icon: "edit",
-            link: "article/article6",
-          },
-          "article/article7",
-          "article/article8",
-        ],
-      },
-      { text: "文章 9", icon: "edit", link: "article9" },
-      { text: "文章 10", icon: "edit", link: "article10" },
-      "article11",
-      "article12",
+          "03_month",
+          "04月"
+        ]
+      }
     ],
   },
   {

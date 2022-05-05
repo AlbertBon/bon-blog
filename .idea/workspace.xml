@@ -19,41 +19,60 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="583a641b-9746-41c6-a403-0bb5de87bc09" name="Default Changelist" comment="init hope v2">
-      <change afterPath="$PROJECT_DIR$/back/guiss.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/config.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/public/assets/icon/apple-icon-152.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/public/assets/icon/chrome-192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/public/assets/icon/chrome-512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/public/assets/icon/chrome-mask-192.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/public/assets/icon/chrome-mask-512.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/public/assets/icon/guide-maskable.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/public/assets/icon/guide-monochrome.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/public/assets/icon/ms-icon-144.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.vuepress/styles/index.styl" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/demo.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/guide/disable.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/guide/encrypt.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/guide/markdown.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/guide/page.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/guide/readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/home.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/intro.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/layout.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/readme.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/en/slides.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/guide/disable.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/guide/disable.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/guide/encrypt.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/guide/encrypt.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/guide/markdown.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/guide/markdown.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/guide/page.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/guide/page.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/guide/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/guide/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/home.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/home.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/layout.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/readme.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/readme.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/slides.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+    <list default="true" id="583a641b-9746-41c6-a403-0bb5de87bc09" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/03_month.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/04月.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/05月.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0325.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0325_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0325_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0325_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0325_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0325_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0325_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0325_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0325_8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0411_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0411_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0411_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0411_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0413_1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0413_2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0413_3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0413_4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0413_5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0413_6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0413_7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0414-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0414-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0414-3.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0414-4.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0414-5.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0414-6.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0414-7.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0414-8.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0414-9.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0420-1.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/image/0420-2.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/工作信息.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/开发记录.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/posts/hucai_work/租户扩展开发.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vuepress/config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vuepress/config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vuepress/navbar.ts" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vuepress/navbar.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/.vuepress/theme.ts" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.vuepress/theme.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article/article1.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/posts/vuepress-theme-hope/init_project.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article/article2.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article/article3.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article/article4.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article/article5.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article/article6.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article/article7.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article/article8.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article10.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article11.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article12.md" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/posts/article9.md" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -81,12 +100,17 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/docs/posts/vuepress-theme-hope" />
     <property name="nodejs_package_manager_path" value="yarn" />
-    <property name="settings.editor.selected.configurable" value="MavenSettings" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
     <property name="ts.external.directory.path" value="D:\Install\IntelliJ IDEA 2020.1.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
   </component>
-  <component name="RunManager" selected="npm.docs:clean-dev">
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\myproject\bon-blog\docs\posts\vuepress-theme-hope" />
+    </key>
+  </component>
+  <component name="RunManager" selected="npm.docs:dev">
     <configuration name="docs:build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -119,8 +143,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.docs:clean-dev" />
         <item itemvalue="npm.docs:dev" />
+        <item itemvalue="npm.docs:clean-dev" />
         <item itemvalue="npm.docs:build" />
       </list>
     </recent_temporary>
@@ -138,6 +162,14 @@
       <workItem from="1651722420167" duration="7522000" />
       <workItem from="1651734907043" duration="2105000" />
     </task>
+    <task id="LOCAL-00001" summary="giscus comment completed">
+      <created>1651739885093</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1651739885093</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -156,8 +188,11 @@
     <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="init hope v2" />
-    <option name="LAST_COMMIT_MESSAGE" value="init hope v2" />
+    <MESSAGE value="giscus comment completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="giscus comment completed" />
   </component>
   <component name="WindowStateProjectService">
     <state x="414" y="180" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1651729663176">
@@ -168,30 +203,34 @@
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
     <state x="708" y="325" key="#com.intellij.fileTypes.FileTypeChooser/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651735250846" />
-    <state x="558" y="92" key="CommitChangelistDialog2" timestamp="1651737175292">
+    <state x="558" y="92" key="CommitChangelistDialog2" timestamp="1651739865318">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="558" y="92" key="CommitChangelistDialog2/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651737175292" />
-    <state width="1877" height="285" key="GridCell.Tab.0.bottom" timestamp="1651737134712">
+    <state x="558" y="92" key="CommitChangelistDialog2/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651739865318" />
+    <state width="1877" height="285" key="GridCell.Tab.0.bottom" timestamp="1651749754186">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.bottom/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651737134712" />
-    <state width="1877" height="285" key="GridCell.Tab.0.center" timestamp="1651737134712">
+    <state width="1877" height="285" key="GridCell.Tab.0.bottom/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651749754186" />
+    <state width="1877" height="285" key="GridCell.Tab.0.center" timestamp="1651749754186">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.center/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651737134711" />
-    <state width="1877" height="285" key="GridCell.Tab.0.left" timestamp="1651737134711">
+    <state width="1877" height="285" key="GridCell.Tab.0.center/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651749754186" />
+    <state width="1877" height="285" key="GridCell.Tab.0.left" timestamp="1651749754186">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.left/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651737134711" />
-    <state width="1877" height="285" key="GridCell.Tab.0.right" timestamp="1651737134712">
+    <state width="1877" height="285" key="GridCell.Tab.0.left/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651749754186" />
+    <state width="1877" height="285" key="GridCell.Tab.0.right" timestamp="1651749754186">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="285" key="GridCell.Tab.0.right/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651737134712" />
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1651725753585">
+    <state width="1877" height="285" key="GridCell.Tab.0.right/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651749754186" />
+    <state x="461" y="169" key="SettingsEditor" timestamp="1651741938080">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="552" y="258" key="Vcs.Push.Dialog.v2/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651725753585" />
+    <state x="461" y="169" key="SettingsEditor/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651741938080" />
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2" timestamp="1651742042977">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="552" y="258" key="Vcs.Push.Dialog.v2/1920.0.1600.870/0.0.1920.1050@0.0.1920.1050" timestamp="1651742042977" />
     <state x="756" y="414" key="git4idea.remote.GitConfigureRemotesDialog" timestamp="1651737240188">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
