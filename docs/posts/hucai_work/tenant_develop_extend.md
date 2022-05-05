@@ -22,7 +22,7 @@ create table hyiam_tenant_tl
 1. idea安装插件`hzero-tools`
 2. 通过idea连接数据源
 3. 使用插件生成代码
-![](image/0414-2.png)
+![](./image/0414-2.png)
 
 ## 新增租户关系
 1. 添加原有租户参数
@@ -132,19 +132,19 @@ public class TenantTl extends AuditDomain {
 
 ## 代码自测
 1. 将新建应用添加到`服务管理`中
-![](image/0414-3.png)
+![](./image/0414-3.png)
 2. 配置好路由
-![](image/0414-4.png)
+![](./image/0414-4.png)
 3. `系统工具`刷新权限,确保新增接口被hzero-admin收集到
-![](image/0414-5.png)
+![](./image/0414-5.png)
 4. 通过`api管理`查看效果
-![](image/0414-6.png)
+![](./image/0414-6.png)
 5. 通过`api测试`测试,并先调用`刷新swagger`接口,确保接口能够被扫描到
 > 此处也可以通过swagger地址来调用,`api测试`菜单会方便些
-![](image/0414-7.png)
+![](./image/0414-7.png)
 
 6. 调用新的租户新增接口测试
-![](image/0414-8.png)
+![](./image/0414-8.png)
 
 ## 通过服务提供的扩展自定义
 > 多租户部分的源码里租户的操作用了观察者模式,所以可以在这里扩展,暂只做了一个测试,标注了方法的用途,以后有需求可以从这里扩展
@@ -191,4 +191,4 @@ public class BaseTenantConfig {
 ```
 3. 调用`新增租户`成功后,会打印`创建租户自定义扩展`信息
 
-​	![](image/0414-9.png)
+​	![](./image/0414-9.png)
