@@ -10,8 +10,10 @@ export default hopeTheme({
     url: "http://bon.sikixt.xyz",
   },
 
-  iconPrefix: "iconfont icon-",
+  // 图标前缀
+  iconPrefix: "fas fa-",
 
+  // logo图片
   logo: "/logo.svg",
 
   // 是否编辑,仓库链接
@@ -34,7 +36,7 @@ export default hopeTheme({
 
   blog: {
     description: "我的博客",
-    intro: "/intro.html",
+    intro: "/",
     medias: {
       Baidu: "https://baidu.com",
       Gitee: "https://gitee.com",

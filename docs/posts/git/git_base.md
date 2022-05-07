@@ -1,5 +1,5 @@
 ---
-icon: git
+icon: code-branch
 date: 2022-05-05
 category:
   - git

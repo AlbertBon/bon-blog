@@ -4,7 +4,7 @@ date: 2022-05-05
 category:
   - theme-hope
 tag:
-  - tech
+  - theme
 ---
 
 # giscus评论

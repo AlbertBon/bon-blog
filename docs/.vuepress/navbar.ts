@@ -9,11 +9,12 @@ export default navbar([
         children: [
             {
                 text: "theme-hope 文章",
-                icon: "linter",
+                icon: "edit",
                 prefix: "vuepress-theme-hope/",
                 children: [
                     "init_project",
-                    "install_giscus"
+                    "install_giscus",
+                    "theme_setting",
                 ],
             }, {
                 text: "git 文章",
@@ -25,6 +26,7 @@ export default navbar([
         ],
     }, {
         text: "工作",
+        icon: "briefcase",
         prefix: "/hucai_work/",
         children: [
             "03_month",
