@@ -22,3 +22,7 @@ https://www.kdocs.cn/view/l/ccLho1krGo0U
 
 https://docs.qq.com/sheet/DZlFHTk9tb2ZETEZ1?tab=BB08J2
 
+## 日报地址
+
+https://docs.qq.com/sheet/DZkNoZ2l4VFdjSmdz?tab=BB08J2
+

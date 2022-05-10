@@ -14,7 +14,7 @@
 * 接口地址
 > post
 
-http://192.168.56.104:8080/iam/v1/extend/{organizationId}/users
+http://192.168.56.104:8080/iam/v1/extend/6/users
 
 * 请求参数
 
@@ -216,3 +216,485 @@ http://192.168.56.104:8080/iam/v1/tenant-relations
 7. 重新登陆会有新建角色可以选择,切换角色后公司只能看到配置的部分
 
 ![](./image/0507_8.png)
+
+## 05-09
+
+### 创建客户json
+
+```json
+{
+  "companyInfoModelReq": {
+    "companyName": "100",
+    "companyType": "1",
+    "contactMan": "laownag",
+    "contactMobile": "17673943339",
+    "businessLicense": "www.baidu",
+    "bookLicense": "sfaafss",
+    "taxLicense": "sfag",
+    "bankLicense": "sfaf",
+    "groupCompanyName": "北京搜书文化传播有限公司",
+    "creditAccount": "1",
+    "loginAccount": "196452234",
+    "loginPassword": "loginPassword"
+  },
+  "invoiceModel": {
+    "companyName": "400",
+    "taxNumber": "1000",
+    "bankAccount": "農業銀行",
+    "bankName": "d地主一行",
+    "companyAddress": "donggunag",
+    "contactTel": "17679348253"
+  },
+  "user": {
+    "userType": "P",
+    "loginName": "ht_test100",
+    "realName": "华图测试100",
+    "gender": "",
+    "organizationId": "6",
+    "internationalTelCode": "+86",
+    "startDateActive": "2022-04-27",
+    "tenantName": "华图",
+    "defaultRoles": [],
+    "memberRoleList": [
+      {
+        "code": "cbtest",
+        "level": "organization",
+        "tenantId": 7,
+        "tenantName": "华图",
+        "name": "华图租户角色",
+        "sourceType": "organization",
+        "memberType": "user",
+        "assignLevel": "organization",
+        "assignLevelValue": 7,
+        "assignLevelValueMeaning": "华图",
+        "_status": "create",
+        "manageableFlag": 1,
+        "roleId": "7",
+        "sourceId": "7"
+      }
+    ],
+    "extendUserInfo": {
+      "applyType": "申请（代理）类型",
+      "businessLicense": "营业执照",
+      "idArdPicBack": "身份证反面",
+      "userTypeYun": "出版云印用户类型",
+      "subDomain": "子域名",
+      "idCardNo": "身份证号码",
+      "businessLicenseCode": "营业执照号",
+      "bookLicense": "图书许可证",
+      "menuLogo": "菜单logo",
+      "userBelonging": "1",
+      "abbreviationName": "公司简称",
+      "moduleId": "1",
+      "adPic": "广告语图片",
+      "proxyLogo": "代理LOGO图片",
+      "upCustomer": "1",
+      "companyType": "1",
+      "bankLicense": "银行开户许可证",
+      "companyId": "1",
+      "themeColor": "主题颜色",
+      "background": "登录图",
+      "loginLogo": "登录logo",
+      "idArdPicFront": "身份证正面",
+      "taxLicense": "税务登记证",
+      "proxyId": "1"
+    }
+  }
+}
+```
+
+### 用户注册流程
+1. 创建用户接口
+> /iam/v1/extend/6/users
+2. 查询当前用户的管理角色
+> /hzero/v1/roles/self/admin-roles
+3. 分页查询当前用户可管理的所有(子孙)角色
+> /hzero/v1/roles/self/manageable-roles
+
+
+### 值集配置注解大致源码解析
+> 看文档可以知道大概是利用aop来扫描注解,有两个注解`@ProcessLovValue`和`@LovValue`
+
+1. 处理值集值映射的切面`LovValueAspect`,从此处代码可知,需要在加上`@ProcessLovValue`注解才能被增强;
+
+```java
+@Aspect
+public class LovValueAspect {
+	
+	private LovValueHandle lovValueHandle;
+	
+	public LovValueAspect(LovValueHandle lovValueHandle) {
+		this.lovValueHandle = lovValueHandle;
+	}
+	
+	@AfterReturning(value = "@annotation(org.hzero.boot.platform.lov.annotation.ProcessLovValue)",returning="result") 
+	public Object afterReturning(JoinPoint proceedingJoinPoint, Object result) throws Throwable {
+		MethodSignature signature = (MethodSignature) proceedingJoinPoint.getSignature();
+		Method method = signature.getMethod();
+		ProcessLovValue processLovValue = method.getAnnotation(ProcessLovValue.class);
+		result = this.lovValueHandle.process(processLovValue.targetField(), result);
+		return result;
+	}
+	
+}
+```
+2. 主要处理逻辑在`LovValueHandle`中,有个默认实现的handle: `DefaultLovValueHandle`
+
+```java
+@Override
+public Object process(String[] targetFields, Object result) {
+    try {
+        if (result == null) {
+            this.logger.debug("result is null, skip translate");
+            return null;
+        }
+        this.logger.debug("lov translate begin");
+        if(this.logger.isDebugEnabled()) {
+            this.logger.debug("target fields is [{}]", ArrayUtils.isEmpty(targetFields) ? "[]" : Arrays.toString(targetFields));
+        }
+        // 有其他解析需求的话可以在这里扩展
+        if (result instanceof Collection) {
+            // 如果传入对象为集合,则直接处理其中的Elements
+            this.processCollection(targetFields, (Collection<?>) result);
+        } else {
+            // 未命中任何解析方式,进行默认解析,方法里面对`@LovValue`注解字段进行扫描
+            this.processDefault(targetFields, result);
+        }
+        this.logger.debug("lov translate end");
+    } catch (IllegalArgumentException | IllegalAccessException | NoSuchFieldException | SecurityException e) {
+        logger.error(e.getMessage(), e);
+    }
+    return result;
+}
+```
+3. `LovValueHandle`在`LovAutoConfiguration`中注入
+
+> `hzero.lov.value.enable` 配置为true生效,不过默认也是为true的.
+
+```java
+@ConditionalOnProperty(prefix = "hzero.lov" + '.' + "value", name = "enabled", havingValue = "true", matchIfMissing = true)
+@EnableAspectJAutoProxy
+static class LovValue {
+
+   //Hzero平台HTTP协议,默认http;   服务远程调用方式配置,因为值集会去platform服务获取.
+    @Value("${hzero.platform.httpProtocol:http}")
+    private String hzeroPlatformHttpProtocol;
+
+    @Bean
+    @ConditionalOnMissingBean
+    public LovValueHandle lovValueHandle(LovAdapter lovAdapter, RestTemplate restTemplate) {
+        return new DefaultLovValueHandle(lovAdapter, restTemplate, this.hzeroPlatformHttpProtocol);
+    }
+
+    @Bean
+    public LovValueAspect lovValueAspect(LovValueHandle lovValueHandle) {
+        return new LovValueAspect(lovValueHandle);
+    }
+}
+```
+
+#### 简单使用步骤示例
+* controller加上`ProcessLovValue`注解
+* 字段上加入`@LovValue`注解
+* 对应字段定义接受字段`xxxMeaning`
+
+## 05-10
+### seata分布式事务
+#### 使用docker安装seata
+1. 新建文件夹
+
+```shell script
+mkdir -p /docker/seata/logs
+mkdir -p /docker/seata/seata-config
+```
+2. `seata-config文件夹`中加入`file.conf`和`registry.conf`文件
+* file.conf
+```conf
+## transaction log store, only used in seata-server
+store {
+  ## store mode: file、db、redis
+  mode = "db" ## 原来为file
+ 
+  ## file store property
+  file {
+    ## store location dir
+    dir = "sessionStore"
+    # branch session size , if exceeded first try compress lockkey, still exceeded throws exceptions
+    maxBranchSessionSize = 16384
+    # globe session size , if exceeded throws exceptions
+    maxGlobalSessionSize = 512
+    # file buffer size , if exceeded allocate new buffer
+    fileWriteBufferCacheSize = 16384
+    # when recover batch read size
+    sessionReloadReadSize = 100
+    # async, sync
+    flushDiskMode = async
+  }
+
+  ## database store property
+  db {
+    ## the implement of javax.sql.DataSource, such as DruidDataSource(druid)/BasicDataSource(dbcp)/HikariDataSource(hikari) etc.
+    datasource = "druid"
+    ## mysql/oracle/postgresql/h2/oceanbase etc.
+    dbType = "mysql"
+    driverClassName = "com.mysql.jdbc.Driver"
+    ## 因为设置为db，所以需要选择数据库，这里设置数据库及密码，seata是需要创建的，默认的表是通过脚本运行得到的
+     url = "jdbc:mysql://192.168.56.104:3306/seata?serverTimezone=GMT%2B8"
+    user = "root"
+    password = "123123"
+    minConn = 5
+    maxConn = 30
+    globalTable = "global_table"
+    branchTable = "branch_table"
+    lockTable = "lock_table"
+    queryLimit = 100
+    maxWait = 5000
+  }
+}
+```
+* registry.conf
+```conf
+#服务,将type从file改成nacos,将seata服务配置进nacos
+registry {
+
+  type = "nacos"
+  nacos {
+    application = "seata-server"
+    serverAddr = "192.168.56.104:8848"
+    group = "SEATA_GROUP"
+    namespace = "ef5ea81b-ea35-4810-a246-d5b7b4adaef7"
+    cluster = "default"
+    username = "nacos"
+    password = "nacos"
+  }
+}
+ 
+config {
+  # file、nacos 、apollo、zk、consul、etcd3
+  type = "nacos"
+
+  nacos {
+    serverAddr = "192.168.56.104:8848"
+    namespace = "ef5ea81b-ea35-4810-a246-d5b7b4adaef7"
+    group = "SEATA_GROUP"
+    username = "nacos"
+    password = "nacos"
+  }
+}
+```
+
+3. 将`config.txt`中的内容加入到`nacos`中
+* 推送命令文件`nacos-config.sh`
+```shell script
+#!/usr/bin/env bash
+# Copyright 1999-2019 Seata.io Group.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at、
+#
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+while getopts ":h:p:g:t:u:w:" opt
+do
+  case $opt in
+  h)
+    host=$OPTARG
+    ;;
+  p)
+    port=$OPTARG
+    ;;
+  g)
+    group=$OPTARG
+    ;;
+  t)
+    tenant=$OPTARG
+    ;;
+  u)
+    username=$OPT
+```
+
+* `config.txt`文件,修改`mysql`部分和`group`
+```properties
+transport.type=TCP
+transport.server=NIO
+transport.heartbeat=true
+transport.enableClientBatchSendRequest=false
+transport.threadFactory.bossThreadPrefix=NettyBoss
+transport.threadFactory.workerThreadPrefix=NettyServerNIOWorker
+transport.threadFactory.serverExecutorThreadPrefix=NettyServerBizHandler
+transport.threadFactory.shareBossWorker=false
+transport.threadFactory.clientSelectorThreadPrefix=NettyClientSelector
+transport.threadFactory.clientSelectorThreadSize=1
+transport.threadFactory.clientWorkerThreadPrefix=NettyClientWorkerThread
+transport.threadFactory.bossThreadSize=1
+transport.threadFactory.workerThreadSize=default
+transport.shutdown.wait=3
+service.vgroupMapping.my_test_tx_group=default
+service.default.grouplist=192.168.56.104:8091
+service.enableDegrade=false
+service.disableGlobalTransaction=false
+client.rm.asyncCommitBufferLimit=10000
+client.rm.lock.retryInterval=10
+client.rm.lock.retryTimes=30
+client.rm.lock.retryPolicyBranchRollbackOnConflict=true
+client.rm.reportRetryCount=5
+client.rm.tableMetaCheckEnable=false
+client.rm.sqlParserType=druid
+client.rm.reportSuccessEnable=false
+client.rm.sagaBranchRegisterEnable=false
+client.tm.commitRetryCount=5
+client.tm.rollbackRetryCount=5
+client.tm.degradeCheck=false
+client.tm.degradeCheckAllowTimes=10
+client.tm.degradeCheckPeriod=2000
+store.mode=db
+store.file.dir=file_store/data
+store.file.maxBranchSessionSize=16384
+store.file.maxGlobalSessionSize=512
+store.file.fileWriteBufferCacheSize=16384
+store.file.flushDiskMode=async
+store.file.sessionReloadReadSize=100
+store.db.datasource=druid
+store.db.dbType=mysql
+store.db.driverClassName=com.mysql.jdbc.Driver
+store.db.url=jdbc:mysql://192.168.56.104:3306/seata?useUnicode=true
+store.db.user=root
+store.db.password=123123
+store.db.minConn=5
+store.db.maxConn=30
+store.db.globalTable=global_table
+store.db.branchTable=branch_table
+store.db.queryLimit=100
+store.db.lockTable=lock_table
+store.db.maxWait=5000
+store.redis.host=127.0.0.1
+store.redis.port=6379
+store.redis.maxConn=10
+store.redis.minConn=1
+store.redis.database=0
+store.redis.password=null
+store.redis.queryLimit=100
+server.recovery.committingRetryPeriod=1000
+server.recovery.asynCommittingRetryPeriod=1000
+server.recovery.rollbackingRetryPeriod=1000
+server.recovery.timeoutRetryPeriod=1000
+server.maxCommitRetryTimeout=-1
+server.maxRollbackRetryTimeout=-1
+server.rollbackRetryTimeoutUnlockEnable=false
+client.undo.dataValidation=true
+client.undo.logSerialization=jackson
+client.undo.onlyCareUpdateColumns=true
+server.undo.logSaveDays=7
+server.undo.logDeletePeriod=86400000
+client.undo.logTable=undo_log
+client.log.exceptionRate=100
+transport.serialization=seata
+transport.compressor=none
+metrics.enabled=false
+metrics.registryType=compact
+metrics.exporterList=prometheus
+metrics.exporterPrometheusPort=9898
+```
+
+* 使用命令推送
+```shell script
+sh nacos-config.sh -h 192.168.56.104 -p 8848 -t [命名空间] -g SEATA_GROUP 
+```
+
+4. 运行docker命令安装seata
+
+```shell script
+docker run -it -d   -p 8091:8091 \
+-v /docker/seata/seata-config/registry.conf:/seata-server/resources/registry.conf \
+-v /docker/seata/seata-config/file.conf:/seata-server/resources/file.conf \
+-v /docker/seata/logs:/root/logs \
+-e SEATA_IP=192.168.56.104 \
+-e SEATA_PORT=8091 \
+--privileged=true \
+--name seata  seataio/seata-server:1.4.2
+```
+
+#### 客户端配置使用
+1. pom.xml配置
+```xml
+<dependency>
+    <groupId>com.alibaba.cloud</groupId>
+    <artifactId>spring-cloud-starter-alibaba-seata</artifactId>
+    <exclusions>
+        <exclusion>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-all</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>io.seata</groupId>
+            <artifactId>seata-spring-boot-starter</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+<dependency>
+    <groupId>io.seata</groupId>
+    <artifactId>seata-spring-boot-starter</artifactId>
+    <version>1.4.2</version>
+</dependency>
+<dependency>
+    <groupId>io.seata</groupId>
+    <artifactId>seata-all</artifactId>
+    <version>1.4.2</version>
+</dependency>
+```
+
+2. 配置yaml
+```yaml
+## 客户端seata的相关配置
+seata:
+  ## 是否开启seata，默认true
+  enabled: true
+  application-id: ${spring.application.name}
+  ## seata事务组的名称，一定要和config.tx(nacos)中配置的相同
+  tx-service-group: ${spring.application.name}-tx-group
+  ## 配置中心的配置
+  config:
+    ## 使用类型nacos
+    type: nacos
+    ## nacos作为配置中心的相关配置，需要和server在同一个注册中心下
+    nacos:
+      ## 命名空间，需要server端(registry和config)、nacos配置client端(registry和config)保持一致
+      namespace: ef5ea81b-ea35-4810-a246-d5b7b4adaef7
+      ## 地址
+      server-addr: 192.168.56.104:8848
+      ## 组， 需要server端(registry和config)、nacos配置client端(registry和config)保持一致
+      group: SEATA_GROUP
+      ## 用户名和密码
+      username: nacos
+      password: nacos
+  registry:
+    type: nacos
+    nacos:
+      ## 这里的名字一定要和seata服务端中的名称相同，默认是seata-server
+      application: seata-server
+      ## 需要server端(registry和config)、nacos配置client端(registry和config)保持一致
+      group: SEATA_GROUP
+      namespace: ef5ea81b-ea35-4810-a246-d5b7b4adaef7
+      username: nacos
+      password: nacos
+      server-addr: 192.168.56.104:8848
+```
+
+3. nacos中加入配置
+> 配置的前缀`service.vgroupMapping.`,后面部分需要与配置中的`tx-service-group`值一样,例如:
+> `service.vgroupMapping.`+`tx-service-group`
+
+![](./image/20220510_1.png)
+
+4. 发起者的方法上加入注解`@GlobalTransactional`
+
+#### seata传递XID原理
+1. 发起者所属微服务在`SeataFeignClient`方法中,会在头文件加上XID
+2. 远程feign调用的服务会在拦截器`SeataHandlerInterceptor`中获取到XID
