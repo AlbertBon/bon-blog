@@ -605,7 +605,7 @@ metrics.exporterPrometheusPort=9898
 
 * 使用命令推送
 ```shell script
-sh nacos-config.sh -h 192.168.56.104 -p 8848 -t [命名空间] -g SEATA_GROUP 
+sh nacos-config.sh -h 192.168.56.104 -p 8848 -t [命名空间] -g -u nacos -w nacos SEATA_GROUP 
 ```
 
 4. 运行docker命令安装seata
