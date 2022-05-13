@@ -621,6 +621,13 @@ docker run -it -d   -p 8091:8091 \
 --name seata  seataio/seata-server:1.4.2
 ```
 
+5. 1.4.2版本要加入`@EnableAutoDataSourceProxy`
+```java
+// 因为1.4.0版本SeataDataSourceAutoConfiguration有改变
+@EnableAutoDataSourceProxy
+public class HycbmiddlebackiamsaasApplication {
+```
+
 #### 客户端配置使用
 1. pom.xml配置
 ```xml
@@ -698,3 +705,239 @@ seata:
 #### seata传递XID原理
 1. 发起者所属微服务在`SeataFeignClient`方法中,会在头文件加上XID
 2. 远程feign调用的服务会在拦截器`SeataHandlerInterceptor`中获取到XID
+
+#### seata序列化问题修复
+1. pom加入依赖
+```xml
+<dependency>
+    <groupId>com.esotericsoftware</groupId>
+    <artifactId>kryo</artifactId>
+    <version>4.0.2</version>
+</dependency>
+<dependency>
+    <groupId>de.javakaffee</groupId>
+    <artifactId>kryo-serializers</artifactId>
+    <version>0.41</version>
+</dependency>
+```
+2. seata配置`nacos`
+```text
+client.undo.logSerialization=kryo
+```
+
+## 05-11
+### 数据权限原理分析
+* 配置数据语句拦截器`SqlParserInterceptorConfiguration`
+```java
+@Configuration
+public class SqlParserInterceptorConfiguration {
+    @Value("${spring.application.name:application}")
+    private String serviceName;
+    private List<SqlInterceptor> sqlInterceptors;
+
+// 将拦截器注册到spring容器里
+    @Bean
+    @ConditionalOnMissingBean
+    public SqlParserInterceptor sqlParserInterceptor() {
+        return new SqlParserInterceptor(serviceName, sqlInterceptors);
+    }
+
+    // 这里会接收所有实现了`SqlInterceptor`接口并注入了spring的bean
+    @Autowired(required = false)
+    public SqlParserInterceptorConfiguration setSqlInterceptors(List<SqlInterceptor> sqlInterceptors) {
+        this.sqlInterceptors = sqlInterceptors;
+        return this;
+    }
+
+}
+```
+* 汉得的自定义数据权限的sql拦截器`SqlParserInterceptor`
+```java
+// 实现了Interceptor,所以会被mybatis加入拦截sql
+public class SqlParserInterceptor implements Interceptor {
+
+    ...
+// 主要方法
+public Object intercept(Invocation invocation) throws Throwable {
+        if (CollectionUtils.isEmpty(sqlInterceptors) || SqlParserHelper.isClose()) {
+            return invocation.proceed();
+        }
+        // update -> prepared key
+        if (invocation.getArgs().length == 2) {
+            preparedGenerateKey(invocation);
+        }
+        BoundSql boundSql = SqlUtils.getBoundSql(invocation);
+        if (boundSql == null) {
+            return invocation.proceed();
+        }
+        currentBoundSql.set(boundSql);
+        currentInvocation.set(invocation);
+        String sqlId = SqlUtils.getSqlId(invocation);
+        Statement statement;
+        try {
+            statement = CCJSqlParserUtil.parse(boundSql.getSql());
+            CustomUserDetails userDetails = DetailsHelper.getUserDetails();
+// 循环执行定义的SqlInterceptor拦截器
+            for (SqlInterceptor sqlInterceptor : sqlInterceptors) {
+                sqlInterceptor.before();
+                statement = sqlInterceptor.handleStatement(statement, serviceName, sqlId, getArgs(invocation, statement), userDetails != null ? userDetails : DetailsHelper.getAnonymousDetails());
+                sqlInterceptor.after();
+            }
+        } catch (Exception e) {
+            logger.error("Error parser sql.", e);
+            return invocation.proceed();
+        } finally {
+            currentInvocation.remove();
+            currentBoundSql.remove();
+        }
+        return SqlUtils.resetSql(invocation, boundSql, statement.toString()).proceed();
+    }
+
+...
+
+}
+```
+* 自定义的sql拦截器接口`SqlInterceptor`
+```java
+// 比如查询简单语句的拼接
+default PlainSelect handlePlainSelect(PlainSelect plainSelect, String serviceName, String sqlId, Map args, CustomUserDetails userDetails) {
+    // 拦截列
+    List<SelectItem> selectItems = plainSelect.getSelectItems();
+    if (!CollectionUtils.isEmpty(selectItems)) {
+        for (int i = 0; i < selectItems.size(); ++i) {
+            SelectItem selectItem = selectItems.get(i);
+            if (selectItem instanceof SelectExpressionItem && ((SelectExpressionItem) selectItem).getExpression() instanceof SubSelect) {
+                SelectExpressionItem selectExpressionItem = (SelectExpressionItem) selectItem;
+//handleSubSelect由实现类自己实现
+                selectExpressionItem.setExpression(handleSubSelect((SubSelect) selectExpressionItem.getExpression(), serviceName, sqlId, args, userDetails));
+            } else if (selectItem instanceof SelectExpressionItem && ((SelectExpressionItem) selectItem).getExpression() instanceof CaseExpression) {
+                SelectExpressionItem selectExpressionItem = (SelectExpressionItem) selectItem;
+                selectExpressionItem.setExpression(handleCase((CaseExpression) selectExpressionItem.getExpression(), serviceName, sqlId, args, userDetails));
+            } else {
+                selectItem = handleSelectItem(selectItem, serviceName, sqlId, args, userDetails);
+            }
+            selectItems.set(i, selectItem);
+        }
+    }
+    // 拦截FROM
+    FromItem fromItem = plainSelect.getFromItem();
+    if (fromItem instanceof Table) {
+//handleTable由实现类自己实现
+        FromItem afterHandlerFromItem = handleTable((Table) fromItem, serviceName, sqlId, args, userDetails);
+        plainSelect.setFromItem(afterHandlerFromItem);
+    } else if (fromItem instanceof SubSelect) {
+        handleSubSelect((SubSelect) fromItem, serviceName, sqlId, args, userDetails);
+    }
+    // 拦截JOIN
+    List<Join> joins = plainSelect.getJoins();
+    if (!CollectionUtils.isEmpty(joins)) {
+        for (Join join : joins) {
+            handleJoin(join, serviceName, sqlId, args, userDetails);
+        }
+    }
+    // 拦截WHERE
+    Expression where = plainSelect.getWhere();
+    if (where != null) {
+        handleExpression(where, serviceName, sqlId, args, userDetails);
+    }
+    return plainSelect;
+}
+```
+* `SqlInterceptor`接口的实现类`PermissionSqlBuilder`
+
+> 这个拦截器是用于数据权限的实现类
+
+
+```java
+// 拦截前
+    @Override
+    public void before() {
+        permissionSqlRepository.resetCache();
+        onlyHandlePrefix.remove();
+        tableAliasNumber.set(new AtomicInteger(0));
+    }
+// 拦截后
+    @Override
+    public void after() {
+        permissionSqlRepository.resetCache();
+        onlyHandlePrefix.remove();
+    }
+// 处理拦截,主要的方法其实接口类已经实现,这里只做数据权限相关的处理
+    @Override
+    public FromItem handleTable(Table table, String serviceName, String sqlId, Map args, CustomUserDetails userDetails) {
+        init(getInitFilterSqlInterceptors());
+        return handleTable2FromItem(table, serviceName, sqlId, args, userDetails == null ? DetailsHelper.getAnonymousDetails() : userDetails);
+    }
+    private FromItem handleTable2FromItem(Table table, String serviceName, String sqlId, Map args, CustomUserDetails userDetails) {
+        FromItem fromItem = table;
+        PermissionRangeVO permissionRange = getPermissionRange(table, serviceName, sqlId, args, userDetails);
+        if (permissionRange != null) {
+            if (StringUtils.hasText(permissionRange.getDbPrefix())) {
+                String dbPrefix = permissionRange.getDbPrefix();
+                if (permissionDataProperties != null && StringUtils.hasText(permissionDataProperties.getDbOwner())) {
+                    dbPrefix = dbPrefix + "." + permissionDataProperties.getDbOwner();
+                }
+                fromItem = SqlUtils.generateTablePrefix(table, dbPrefix);
+            }
+            if (!CollectionUtils.isEmpty(permissionRange.getSqlList())) {
+                if (!BooleanUtils.isTrue(onlyHandlePrefix.get())) {
+                    try {
+                        onlyHandlePrefix.set(true);
+                        fromItem = handleSubSelect(SqlUtils.generateSubSelect(table, permissionRange.getSqlList(), args, userDetails, tableAliasNumber.get().getAndIncrement()),
+                                serviceName, sqlId, args, userDetails);
+                    } catch (JSQLParserException e) {
+                        logger.error("Error generateSubSelect.", e);
+                    } finally {
+                        onlyHandlePrefix.remove();
+                    }
+                }
+            }
+        }
+        return fromItem;
+    }
+```
+
+## 05-12
+### get请求,分页用路径参数,同时可以接收body
+
+```java
+    @GetMapping("/dev-public")
+    public ResponseEntity devPublic(PageRequest map,@RequestBody Map map1) {
+```
+
+### 单据权限详细分析
+1. 单据维度配置
+
+配置的是请求范围,显示的内容在权限数据里;就是提供一些数据给到单据权限可以选择,单据权限选择某些数据,这些数据才会在对应角色中显示
+![](./image/20220512_1.png)
+
+* 黑名单与白名单
+    * 黑名单: 只有选择了数据才会显示
+    * 白名单: 选择了的数据会被隐藏
+
+2. 单据权限
+
+真正控制权限的地方,这里不启用就不会去过滤; 这里会去查询单据维度配置的
+![](./image/20220512_2.png)
+
+3. 
+
+
+## 05-13
+### 本周日报整理
+
+序号|内容
+---|---
+1|1. 用户类型值集配置及代码开发 2. 获取角色接口
+2|1. 远程获取用户扩展信息接口 2. 开启分布式事务seata
+3|1. 查阅行狼监控平台文档 2. 数据权限功能模块查看源码及调试 3. 将服务器的基础服务重新部署一份到新服务器
+4|1. 单据权限部分调试 2. 根据汉得原有数据权限模块思考适应业务的数据权限技术方案
+5|
+
+### 数据权限适应业务的技术方案
+1. 简单的查询可以使用单据权限来控制,将对应的角色加上可以有的权限范围
+2. 角色可以分为几种不同的组合;只看自己,看自己和全部,看自己及下属... 就是把角色再细分
+3. 这里如果是订单这种大的表,必须要代码里自己实现权限控制,只有数据量小查询可以使用原生的权限配置
+
+### 上线状态接口
+

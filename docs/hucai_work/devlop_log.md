@@ -137,4 +137,10 @@ https://lanhuapp.com/url/wbIMk
 ```
 
 
+### 行狼信息
+```text
+行狼地址：http://jk.flytiger.net:8800/
+密码：域账号密码(Hc+工号，或者工号后6位)
+```
+
 
