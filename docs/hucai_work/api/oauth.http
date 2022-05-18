@@ -1,0 +1,12 @@
+POST http://develop-gateway.cb.hucai.cn/oauth/oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=client_credentials&client_id=client&client_secret=secret
+
+### 客户端模式
+POST http://develop-gateway.cb.hucai.cn/oauth/oauth/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=password&client_id=client&client_secret=secret&username=admin&password=Admin@123!
+
+### 密码登录模式
