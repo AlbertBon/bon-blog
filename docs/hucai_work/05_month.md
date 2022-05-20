@@ -79,7 +79,16 @@ http://192.168.56.104:8080/iam/v1/extend/6/users
 
 ## 05-06
 
-### 加密id
+### 加密路径id值
+
+* 前言 
+
+> hzero请求接口时有些id字段需要加密,导致postman等外部调用测试不了接口
+> 因此通过查看汉得的加密代码,写了一个id加密值的类,供参考使用
+> 使用方法: 根据需要自行设置(id,表名,token)三个值,一般来说请求只根据id和token加密,表名可以不填;
+
+* 加密代码
+
 ```java
 public class EncryptTest {
 
@@ -90,6 +99,7 @@ public class EncryptTest {
         encryptKeyList.add("297010915528814633");// id
         encryptKeyList.add("");// 表名
         encryptKeyList.add(getSubToken("b093f338-266a-471d-ada8-7cbe8af1466c")); // token
+        // A5/vRTuHzZshct28bZSAiw== 是汉得目前放入的默认密钥值,如果配置了自己的密钥,需要修改这个值
         String s = wrap(EncryptionUtils.AES.encryptWithUrlEncoder(StringUtils.collectionToDelimitedString(encryptKeyList, ":"), "A5/vRTuHzZshct28bZSAiw=="));
         System.out.println(s);
     }
@@ -940,4 +950,90 @@ default PlainSelect handlePlainSelect(PlainSelect plainSelect, String serviceNam
 3. 这里如果是订单这种大的表,必须要代码里自己实现权限控制,只有数据量小查询可以使用原生的权限配置
 
 ### 上线状态接口
+
+## 05-16
+### 本周任务
+1. 手机号注册及登录
+2. 接口平台使用
+
+### 手机号注册
+1. 手机号获取验证码
+* 
+
+2. 通过内部调用注册用户(需要传入角色,并且不能通过网关调用)
+
+3. 注册为匿名用户
+
+## 05-17
+
+###　使用ktconnct连接集群(本地为windows版)
+1. 下载`ktctl`
+
+[ktconnct文档地址](https://alibaba.github.io/kt-connect/#/zh-cn/guide/quickstart)
+
+2. 下载windows版`k8s`
+
+>　文件已放附件也可以自行去官网下载 
+
+[文档地址](https://kuboard.cn/install/install-k8s.html)
+
+3. 安装 `k8s` 和 `ktctl`
+
+> 将下载的文件放到自己的文件夹下,并配置环境变量
+
+![](./image/20220518_1.png)
+
+![](./image/20220518_2.png)
+
+4. 将集群配置文件放入 `~/.kube/` 文件夹下
+
+> 在 `用户文件夹` 新建 `.kube` 文件夹,并把 `config` 文件放在此文件夹下
+
+![](./image/20220518_3.png)
+
+5. 使用ktctl命令连接集群
+
+* 连接
+
+```shell script
+ktctl connect
+```
+
+* 连接成功后界面
+
+> 连接成功后窗口不要关闭
+
+![](./image/20220518_6.png)
+
+6. 创建一个shadow容器转发流量到本地
+
+> 这里使用iam服务为例
+> -n devp-hy-cb-middle-env 是命名空间
+> hy-cb-middle-back-iam-s-4dc505 是service
+> --expose 8030 暴露端口
+
+```shell script
+ktctl mesh -n devp-hy-cb-middle-env hy-cb-middle-back-iam-s-4dc505 
+```
+
+![](./image/20220518_4.png)
+
+
+7. 本地代码设置服务nacos ip为生成的shadow容器的pod id
+
+* pod id 使用 kubectl 命令获取
+
+```shell script
+kubectl get pods -o wide -A
+```
+
+* 配置nacos ip
+
+![](./image/20220518_5.png)
+
+
+
+## 05-20
+
+### 接口平台查看
 

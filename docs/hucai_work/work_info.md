@@ -26,4 +26,11 @@ https://docs.qq.com/sheet/DZlFHTk9tb2ZETEZ1?tab=BB08J2
 
 https://docs.qq.com/sheet/DZkNoZ2l4VFdjSmdz?tab=BB08J2
 
+## 用户权限角色的需求说明
 
+https://app.flytiger.net/#/knowledge/share/94f4e1e49b4beea4
+
+## ldap信息
+
+ldap://192.172.21.197
+OU=信息中心,OU=虎彩印艺总部,OU=DG-HC,DC=hcldap,DC=intra

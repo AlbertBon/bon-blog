@@ -1,0 +1,8 @@
+version: "3"
+services:
+  admin:
+    container_name: admin
+    image: admin
+    ports:
+      - "8060:8060"
+      - "8061:8061"
