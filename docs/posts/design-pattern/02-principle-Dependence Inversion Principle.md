@@ -1,6 +1,16 @@
-## 简介
+---
+icon: book
+date: 2022-05-22
+category:
+  - design-pattern
+tag:
+  - design-pattern
+---
 
-依赖倒转原则--Dependence Inversion Principle
+
+# 依赖倒转原则--Dependence Inversion Principle
+
+## 简介
 
 >  面向接口(抽象)编程
 

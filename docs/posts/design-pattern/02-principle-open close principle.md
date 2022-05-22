@@ -1,6 +1,16 @@
-## 简介
+---
+icon: book
+date: 2022-05-22
+category:
+  - design-pattern
+tag:
+  - design-pattern
+---
 
-开闭原则--open close principle
+
+# 开闭原则--open close principle
+
+## 简介
 
 > 对扩展(对提供方)开放,对修改(对使用方)关闭
 

@@ -10,6 +10,8 @@ tag:
 
 ## 主题文档
 
+> vuepress-theme-hope
+
 [文档地址]( https://vuepress-theme-hope.github.io/v2/zh/guide/blog/home/)
 
 ## 图标信息
@@ -34,7 +36,7 @@ tag:
 
 > 同时前缀`iconPrefix`变为`fas fa-`
 
-[图标地址](https://fontawesome.com/icons)
+[图标地址](https://fontawesome.com/search?s=solid)
 
 ```js
 // .vuepress的head中配置
@@ -49,9 +51,4 @@ tag:
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/regular.min.css");
 ```
 
-```puml
-@startuml;
-class ob
-@enduml
-```
 

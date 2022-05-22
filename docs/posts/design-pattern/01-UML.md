@@ -1,6 +1,16 @@
-## 图解
+---
+icon: book
+date: 2022-05-22
+category:
+  - design-pattern
+tag:
+  - design-pattern
+---
 
-![](E:\学习记录_markdown\设计模式\image\3.png)
+
+# 图解
+
+![](./image/3.png)
 
 ```plantuml
 @startuml

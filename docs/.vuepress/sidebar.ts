@@ -4,36 +4,61 @@ export default sidebar([
   "/",
   {
     text: "博文",
-    icon: "edit",
+    icon: "blog",
     prefix: "/posts/",
     children: [
       {
-        text: "theme-hope 文章",
-        icon: "linter",
+        text: "theme-hope",
         prefix: "vuepress-theme-hope/",
-        children: [
-          "init_project",
-          "install_giscus"
-        ],
+        children: "structure",
+        collapsable: true
       }, {
-        text: "git 文章",
+        text: "git",
         prefix: "git/",
-        children: [
-          "git_base",
-        ]
+        children: "structure",
+        collapsable: true
+      }, {
+        text: "k8s",
+        prefix: "k8s/",
+        children: "structure",
+        collapsable: true
+      }, {
+        text: "idea",
+        prefix: "idea/",
+        children: "structure",
+        collapsable: true
+      }, {
+        text: "java",
+        prefix: "java/",
+        children: "structure",
+        collapsable: true
+      }, {
+        text: "docker",
+        prefix: "docker/",
+        children: "structure",
+        collapsable: true
+      }, {
+        text: "python",
+        prefix: "python/",
+        children: "structure",
+        collapsable: true
+      }, {
+        text: "study-project",
+        prefix: "study-project/",
+        children: "structure",
+        collapsable: true
+      }, {
+        text: "linux",
+        prefix: "linux/",
+        children: "structure",
+        collapsable: true
       }
     ],
   }, {
     text: "工作",
     icon: "briefcase",
     prefix: "/hucai_work/",
-    children: [
-      "03_month",
-      "04_month",
-      "05_month",
-      "work_info",
-      "devlop_log",
-      "tenant_develop_extend",
-    ]
+    children: "structure",
+    collapsable: true
   }
 ]);

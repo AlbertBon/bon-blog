@@ -1,5 +1,5 @@
 ---
-icon: edit
+icon: book
 date: 2022-05-12
 category:
   - linux
@@ -10,12 +10,7 @@ tag:
 # 清理缓存
 
 ## 查看缓存及清理缓存
->
- 
 
- 
- 
->
 ```shell script
 #查看缓存的命令
 free -m

@@ -1,6 +1,16 @@
-### 简介
+---
+icon: book
+date: 2022-05-22
+category:
+  - design-pattern
+tag:
+  - design-pattern
+---
 
-迪米特法则--Demeter Principle
+
+# 迪米特法则--Demeter Principle
+
+## 简介
 
 > 最少知道原则,对关联的类知道的越少越好;降低类与类之间的耦合
 

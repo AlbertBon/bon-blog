@@ -1,6 +1,16 @@
-## 简介
+---
+icon: book
+date: 2022-05-22
+category:
+  - design-pattern
+tag:
+  - design-pattern
+---
 
-接口隔离原则--Interface Segregation Principle
+
+# 接口隔离原则--Interface Segregation Principle
+
+## 简介
 
 >  一个类对另一个类依赖应该建立在最小接口上
 
@@ -31,7 +41,7 @@ D<--A
 @enduml
 ```
 
-![](E:\学习记录_markdown\设计模式\image\1.png)
+![](./image/1.png)
 
 > 改进,拆分接口a,使得各个实现的接口都应该被完全实现
 
@@ -65,5 +75,5 @@ A1<--D
 @enduml
 ```
 
-![](E:\学习记录_markdown\设计模式\image\2.png)
+![](./image/2.png)
 

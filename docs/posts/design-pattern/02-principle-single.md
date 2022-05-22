@@ -1,3 +1,16 @@
+---
+icon: book
+date: 2022-05-22
+category:
+  - design-pattern
+tag:
+  - design-pattern
+---
+
+
+    
+# 单一职责
+
 ## 简介
 
 >  一个类只负责一项功能

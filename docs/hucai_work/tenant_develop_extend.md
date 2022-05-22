@@ -1,3 +1,12 @@
+---
+icon: book
+date: 2022-05-22
+category:
+  - hucai_work
+tag:
+  - hucai_work
+---
+
 # 租户扩展开发
 
 ## 新建租户关系表

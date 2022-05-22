@@ -1,3 +1,13 @@
+---
+icon: book
+date: 2022-05-22
+category:
+  - design-pattern
+tag:
+  - design-pattern
+---
+
+
 # 单例模式
 
 ## 简介

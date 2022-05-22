@@ -1,6 +1,16 @@
-## 简介
+---
+icon: book
+date: 2022-05-22
+category:
+  - design-pattern
+tag:
+  - design-pattern
+---
 
-里氏替换换原则--Liskov  Substitution Principle
+
+# 里氏替换换原则--Liskov Substitution Principle
+
+## 简介
 
 >  父类替换成子类后,程序结果不会有任何变换,就是子类中尽量不要重写父类代码
 

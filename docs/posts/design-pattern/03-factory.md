@@ -1,4 +1,14 @@
-# 单例模式
+---
+icon: book
+date: 2022-05-22
+category:
+  - design-pattern
+tag:
+  - design-pattern
+---
+
+
+# 工厂模式
 
 ## 简介
 
@@ -36,7 +46,7 @@ Pizza <|-- ChinaPizza
 @enduml
 ```
 
-![](E:\学习记录_markdown\设计模式\image\4.png)
+![](./image/4.png)
 
 ```java
 // 调用方直接判断生成pizza
@@ -186,7 +196,7 @@ Client -> OrderStore
 @enduml
 ```
 
-![](E:\学习记录_markdown\设计模式\image\5.png)
+![](./image/5.png)
 
 
 

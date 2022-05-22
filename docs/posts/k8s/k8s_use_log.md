@@ -1,5 +1,5 @@
 ---
-icon: edit
+icon: book
 date: 2022-05-18
 category:
   - k8s

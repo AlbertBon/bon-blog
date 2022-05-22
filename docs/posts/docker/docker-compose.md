@@ -1,5 +1,5 @@
 ---
-icon: edit
+icon: book
 date: 2022-05-17
 category:
   - docker
@@ -159,4 +159,6 @@ ulimits:
 
 ## compose文件
 
-* [mysql-nacos.yaml](./compose/mysql-nacos.yaml)
+* nacos-使用mysql
+
+@[code yaml](./compose/mysql-nacos.yaml)

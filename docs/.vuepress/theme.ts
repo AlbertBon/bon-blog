@@ -26,7 +26,7 @@ export default hopeTheme({
   navbar: navbar,
 
   // sidebar
-  sidebar: [],
+  sidebar: sidebar,
 
   footer: "一叶知秋",
 
